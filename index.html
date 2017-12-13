@@ -12,33 +12,45 @@
 		}
 
 		#magic{
-			color: #777;
+			color: #777; 
 			border-right: 1px solid #777;
 			padding-right: 7px;
 			display: inline;
+			background-color: or
 		}
+
 	</style>
 </head>
 <body>
 
-	Coding is <div id="magic"></div>
-
+	Coding is <div id="magic"></div>&nbsp; 		<!-- BUGFIX 2: add non-breaking space (&nbsp) after 'magic' word, this is so the browser does not ignore the spaces -->
+	
 	<script>
 
 		var words = ["fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
 			el = document.getElementById('magic'),
 			word_counter = 0,
 			character_counter = 0;
+			color_counter = 0;
+
+		var colors = ['red','orange','yellow','green','blue','purple'];			//FEATURE 1: Add colors that change each time the phrase changes.  Simple rainbow
 
 		function updateText()
-		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+		{	
+			document.getElementById('magic').style.color = colors[color_counter];	//FEATURE 2: Set color based on color_counter
 
-			if(character_counter == words[word_counter].length)
+			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			
+			if(character_counter == words[word_counter].length + 1)		//BUGFIX 1: Without '+ 1' code would skip to next word without displaying final letter
 			{
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
 				el.innerHTML = '';  //set the html to be blank
+
+				color_counter++;
+				if(color_counter > colors.length){
+					color_counter = 0;
+				}
 
 				//if we're displaying the last word, go back to the first word
 				if(word_counter == words.length)
